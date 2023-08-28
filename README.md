@@ -12,7 +12,7 @@ Additionaly using the command `terraform fmt` is recommended to format the code
 
 Some docker command we will initialy use (make sure is in the same folder as the Dockerfile):
 ```
-docker ./ build -t my-container --no-cache
+docker build ./ -t my-container --no-cache
 docker run my-container
 ```
 
