@@ -1,0 +1,4 @@
+*.csv
+*.exe
+infraestructure/.terraform.lock.hcl
+infraestructure/.terraform/
