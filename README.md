@@ -16,7 +16,7 @@ docker ./ build -t my-container --no-cache
 docker run my-container
 ```
 
-To Run locally, recommended to bind a volume with the local aws credentials folder as following:
+To Run locally, recommended to bind a volume with the local aws credentials folder as following (change "C:/Users/caiov/.aws" to your pc .aws folder path):
 ```
 docker run -v C:/Users/caiov/.aws:/root/.aws -d my-container
 ```
