@@ -20,6 +20,14 @@ resource "aws_ecs_task_definition" "my_task_definition" {
   container_definitions = jsonencode([{
     name  = "my-container"
     image = aws_ecr_repository.aws-ecr.repository_url
+    log_configuration = {
+      log_driver = "awslogs"
+      options = {
+        "awslogs-group"         = "${aws_cloudwatch_log_group.log-group.id}"
+        "awslogs-region"        = "${var.aws_region}"
+        "awslogs-stream-prefix" = "${var.app_name}-${var.app_environment}"
+      }
+    }
   }])
 }
 
