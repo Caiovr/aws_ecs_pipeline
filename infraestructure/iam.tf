@@ -19,31 +19,42 @@ resource "aws_iam_policy" "ecs_s3_policy" {
 
   policy = jsonencode({
     Version = "2012-10-17",
-    Statement = [{
-      Action = [
-        "s3:GetObject",
-        "s3:PutObject",
-        "s3:ListBucket",
-        "ecr:GetDownloadUrlForLayer",
-        "ecr:BatchGetImage",
-        "ecr:BatchCheckLayerAvailability"
-      ],
-      Effect = "Allow",
-      Resource = [
-        aws_s3_bucket.bucket1.arn,
-        aws_s3_bucket.bucket2.arn
-      ]
-    }, 
-    {
-      Action = [
-        "ecr:GetDownloadUrlForLayer",
-        "ecr:BatchGetImage",
-        "ecr:BatchCheckLayerAvailability",
-        "ecr:GetAuthorizationToken"
-      ],
-      Effect = "Allow",
-      Resource = "*"
-    }]
+    Statement = [
+      {
+        Action = [
+          "s3:GetObject",
+          "s3:PutObject",
+          "s3:ListBucket",
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:BatchGetImage",
+          "ecr:BatchCheckLayerAvailability"
+        ],
+        Effect = "Allow",
+        Resource = [
+          aws_s3_bucket.bucket1.arn,
+          aws_s3_bucket.bucket2.arn
+        ]
+      },
+      {
+        Action = [
+          "ecr:GetDownloadUrlForLayer",
+          "ecr:BatchGetImage",
+          "ecr:BatchCheckLayerAvailability",
+          "ecr:GetAuthorizationToken"
+        ],
+        Effect   = "Allow",
+        Resource = "*"
+      },
+      {
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ],
+        Effect   = "Allow",
+        Resource = aws_cloudwatch_log_group.log-group.arn
+      }
+    ]
   })
 }
 

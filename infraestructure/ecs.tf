@@ -14,7 +14,7 @@ resource "aws_ecs_task_definition" "my_task_definition" {
 
   execution_role_arn = aws_iam_role.ecs_execution_role.arn
 
-  cpu    = "512" # Adjust the CPU units as needed
+  cpu    = "512"  # Adjust the CPU units as needed
   memory = "1024" # Adjust the memory in MiB as needed
 
   container_definitions = jsonencode([{

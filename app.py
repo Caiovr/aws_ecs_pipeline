@@ -7,6 +7,9 @@ from config import READ_BUCKET, \
     WRITE_BUCKET, \
     WRITE_DATA_PATH
 
+READ_BUCKET = "vi-etl-dev-bucket-test-1" #To run Locally
+WRITE_BUCKET = "vi-etl-dev-bucket-test-2" #To run Locally
+
 def set_Logger(log_file=""):
     root = logging.getLogger()
     root.setLevel(logging.INFO)
@@ -26,6 +29,7 @@ def set_Logger(log_file=""):
 
 def main():
     set_Logger("")
+    print("Teste de print")
     logging.info(" #### STARTED CAPTACAO ETL PYTHON #### ")
     logging.info("Hello world")
     objects = wr.s3.list_objects("s3://"+str(READ_BUCKET))
@@ -48,10 +52,10 @@ def main():
 
     res = wr.s3.to_parquet(
         df=main_df,
-        path="s3://"+str(READ_BUCKET),
+        path="s3://"+str(WRITE_BUCKET),
         dataset=True,
-        mode="overwrite",
-        database="DEV_Database",
+        mode="append",
+        database="catalog_test",
         table="teste_apagar"
     )
 
