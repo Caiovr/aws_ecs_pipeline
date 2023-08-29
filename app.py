@@ -46,6 +46,15 @@ def main():
     #df = pd.read_csv(r"C:\Users\caiov\Downloads\cnaes.csv", encoding="latin1", sep=";")
     logging.info(main_df)
 
+    res = wr.s3.to_parquet(
+        df=main_df,
+        path="s3://"+str(READ_BUCKET),
+        dataset=True,
+        mode="overwrite",
+        database="DEV_Database",
+        table="teste_apagar"
+    )
+
 
 if __name__ == '__main__':
     main()

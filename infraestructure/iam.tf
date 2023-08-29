@@ -23,13 +23,26 @@ resource "aws_iam_policy" "ecs_s3_policy" {
       Action = [
         "s3:GetObject",
         "s3:PutObject",
-        "s3:ListBucket"
+        "s3:ListBucket",
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:BatchGetImage",
+        "ecr:BatchCheckLayerAvailability"
       ],
       Effect = "Allow",
       Resource = [
         aws_s3_bucket.bucket1.arn,
         aws_s3_bucket.bucket2.arn
       ]
+    }, 
+    {
+      Action = [
+        "ecr:GetDownloadUrlForLayer",
+        "ecr:BatchGetImage",
+        "ecr:BatchCheckLayerAvailability",
+        "ecr:GetAuthorizationToken"
+      ],
+      Effect = "Allow",
+      Resource = "*"
     }]
   })
 }
