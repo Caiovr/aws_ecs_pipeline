@@ -20,6 +20,8 @@ resource "aws_ecs_task_definition" "my_task_definition" {
   container_definitions = jsonencode([{
     name  = "my-container"
     image = aws_ecr_repository.aws-ecr.repository_url
+    resourceRequirements = null,
+    essential = true,
     log_configuration = {
       log_driver = "awslogs"
       options = {
