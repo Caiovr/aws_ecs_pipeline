@@ -14,14 +14,16 @@ resource "aws_ecs_task_definition" "my_task_definition" {
 
   execution_role_arn = aws_iam_role.ecs_execution_role.arn
 
-  cpu    = "512"  # Adjust the CPU units as needed
-  memory = "1024" # Adjust the memory in MiB as needed
+  cpu    = 256  # Adjust the CPU units as needed
+  memory = 1024 # Adjust the memory in MiB as needed
 
   container_definitions = jsonencode([{
-    name  = "my-container"
-    image = aws_ecr_repository.aws-ecr.repository_url
+    name                 = "my-container"
+    image                = "${aws_ecr_repository.aws-ecr.repository_url}:latest"
+    cpu    = 256
+    memory = 1024
     resourceRequirements = null,
-    essential = true,
+    essential            = true,
     log_configuration = {
       log_driver = "awslogs"
       options = {
@@ -41,7 +43,7 @@ resource "aws_ecs_service" "my_service" {
   launch_type = "FARGATE"
 
   network_configuration {
-    subnets = ["subnet-032e4a99ef87f9ef3", "subnet-0728b333a1594d82a"]
+    subnets         = ["subnet-032e4a99ef87f9ef3", "subnet-0728b333a1594d82a"]
     security_groups = ["sg-0024091f6d716460a", "sg-0e06cf1e261a74368"]
   }
   depends_on = [aws_ecs_task_definition.my_task_definition]

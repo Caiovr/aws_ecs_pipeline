@@ -66,7 +66,7 @@ resource "aws_iam_policy" "ecs_cloudwatch_logs_policy" {
     Version = "2012-10-17",
     Statement = [
       {
-        Action   = [
+        Action = [
           "logs:CreateLogGroup",
           "logs:CreateLogStream",
           "logs:PutLogEvents"
