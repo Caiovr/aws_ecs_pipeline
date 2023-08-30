@@ -34,7 +34,17 @@ resource "aws_iam_policy" "ecs_s3_policy" {
           aws_s3_bucket.bucket1.arn,
           aws_s3_bucket.bucket2.arn
         ]
-      },
+      }
+    ]
+  })
+}
+
+resource "aws_iam_policy" "ecs_ecr_policy" {
+  name = "ecs-ecr-policy"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
       {
         Action = [
           "ecr:GetDownloadUrlForLayer",
@@ -44,15 +54,25 @@ resource "aws_iam_policy" "ecs_s3_policy" {
         ],
         Effect   = "Allow",
         Resource = "*"
-      },
+      }
+    ]
+  })
+}
+
+resource "aws_iam_policy" "ecs_cloudwatch_logs_policy" {
+  name = "ecs-cloudwatch-logs-policy"
+
+  policy = jsonencode({
+    Version = "2012-10-17",
+    Statement = [
       {
-        Action = [
+        Action   = [
           "logs:CreateLogGroup",
           "logs:CreateLogStream",
           "logs:PutLogEvents"
         ],
         Effect   = "Allow",
-        Resource = aws_cloudwatch_log_group.log-group.arn
+        Resource = "*"
       }
     ]
   })
@@ -60,5 +80,15 @@ resource "aws_iam_policy" "ecs_s3_policy" {
 
 resource "aws_iam_role_policy_attachment" "ecs_s3_policy_attachment" {
   policy_arn = aws_iam_policy.ecs_s3_policy.arn
+  role       = aws_iam_role.ecs_execution_role.name
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_ecr_policy_attachment" {
+  policy_arn = aws_iam_policy.ecs_ecr_policy.arn
+  role       = aws_iam_role.ecs_execution_role.name
+}
+
+resource "aws_iam_role_policy_attachment" "ecs_cloudwatch_logs_policy_attachment" {
+  policy_arn = aws_iam_policy.ecs_cloudwatch_logs_policy.arn
   role       = aws_iam_role.ecs_execution_role.name
 }

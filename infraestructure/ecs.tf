@@ -41,6 +41,8 @@ resource "aws_ecs_service" "my_service" {
   launch_type = "FARGATE"
 
   network_configuration {
-    subnets = ["subnet-032e4a99ef87f9ef3"] # Replace with your subnet IDs
+    subnets = ["subnet-032e4a99ef87f9ef3", "subnet-0728b333a1594d82a"]
+    security_groups = ["sg-0024091f6d716460a", "sg-0e06cf1e261a74368"]
   }
+  depends_on = [aws_ecs_task_definition.my_task_definition]
 }
