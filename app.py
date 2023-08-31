@@ -7,8 +7,8 @@ from config import READ_BUCKET, \
     WRITE_BUCKET, \
     WRITE_DATA_PATH
 
-READ_BUCKET = "vi-etl-dev-bucket-test-1" #To run Locally
-WRITE_BUCKET = "vi-etl-dev-bucket-test-2" #To run Locally
+#READ_BUCKET = "vi-etl-dev-bucket-test-1" #To run Locally
+#WRITE_BUCKET = "vi-etl-dev-bucket-test-2" #To run Locally
 
 def set_Logger(log_file=""):
     root = logging.getLogger()
@@ -61,5 +61,7 @@ def main():
 
 
 if __name__ == '__main__':
+    print("Starting Code...")
+    logging.info("Starting Code in Logging...")
     main()
     logging.info("finished!")

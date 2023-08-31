@@ -1,4 +1,4 @@
-FROM python:3
+FROM python:3.10-slim
 # Set application working directory
 WORKDIR /usr/src/app
 
@@ -19,5 +19,5 @@ COPY config.py ./
 COPY app.py ./
 
 # Run application
-#CMD ["python","-u","app.py"]
-ENTRYPOINT ["python","-u","app.py"]
+CMD ["python","-u","app.py"]
+#ENTRYPOINT ["python","-u","app.py"]
