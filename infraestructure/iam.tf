@@ -28,6 +28,11 @@ resource "aws_iam_role" "ecs_task_role" {
   })
 }
 
+# User to be used by github workflow push images to ecr
+resource "aws_iam_user" "github_workflow_user" {
+  name = "github_workflow_user"
+}
+
 # Attach a policy to the ECS task execution role that allows read/write access to the S3 buckets.
 resource "aws_iam_policy" "ecs_s3_policy" {
   name = "ecs-s3-policy"
@@ -117,4 +122,10 @@ resource "aws_iam_role_policy_attachment" "ecs_cloudwatch_logs_policy_attachment
 resource "aws_iam_role_policy_attachment" "ecs_s3_policy_attachment" {
   policy_arn = aws_iam_policy.ecs_s3_policy.arn
   role       = aws_iam_role.ecs_task_role.name
+}
+
+# Anexar políticas ao usuário
+resource "aws_iam_user_policy_attachment" "github_workflow_user" {
+  user       = aws_iam_user.github_workflow_user.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryFullAccess"
 }

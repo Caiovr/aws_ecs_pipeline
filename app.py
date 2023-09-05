@@ -65,3 +65,4 @@ if __name__ == '__main__':
     logging.info("Starting Code in Logging...")
     main()
     logging.info("finished!")
+    logging.info("finished! Deploy sucessfully")
