@@ -1,5 +1,5 @@
 # aws_ecs_pipeline
-Repository created for my mba final project. The idea is create a pipeline for python etls witch will run between an aws ecs cluster
+Repository created for my mba final project. The idea is create a pipeline for python etls witch will run on aws ecs cluster
 
 Some terraform commands to use (make sure the prompt is inside terraform/ folder):
 ```
